@@ -1,7 +1,6 @@
 import os
 import shutil
 import subprocess
-import shlex
 
 def find_matching_mov(root, heic_file):
     base_name = os.path.splitext(heic_file)[0]
@@ -25,7 +24,6 @@ def process_directory(source_dir, output_dir):
     mov_count = 0
     other_count = 0
 
-    # 獲取腳本的絕對路徑
     script_path = os.path.abspath("MotionPhoto2.ps1")
 
     for root, dirs, files in os.walk(source_dir):
@@ -77,6 +75,21 @@ def process_directory(source_dir, output_dir):
                     print(f"No matching MOV file found for: {file}")
                     copy_file(root, file, source_dir, output_dir)
                     copied_files += 1
+            elif file.lower().endswith('.mov'):
+                mov_count += 1
+                # 檢查是否有對應的 HEIC 檔案
+                if not find_matching_heic(root, os.path.splitext(file)[0]):
+                    copy_file(root, file, source_dir, output_dir)
+                    copied_files += 1
+                else:
+                    # 如果有對應的 HEIC 檔案，跳過這個 MOV 檔案，因為它會在處理 HEIC 時一起處理
+                    skipped_files += 1
+                    print(f"Skipped MOV file (part of Live Photo): {os.path.join(root, file)}")
+            else:
+                # 複製所有其他類型的檔案
+                other_count += 1
+                copy_file(root, file, source_dir, output_dir)
+                copied_files += 1
 
     print(f"\nProcessing completed! Summary:")
     print(f"Total files processed: {total_files}")
