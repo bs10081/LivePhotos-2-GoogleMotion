@@ -1,29 +1,70 @@
-# MotionPhoto2
+# LivePhotos-2-GoogleMotion
 
-A small script to create Motion Photo v2 from HEIC or JPG files and videos. Resulting files were tested with Google Photos and are accepted as motion/live photo; and when saved to iPhone from Google Photos, they turn back into Live Photos :-)
+A tool for creating Motion Photo v2 from HEIC or JPG files and videos. This project is a fork of the original MotionPhoto2 project, with added functionality through a `main.py` script for easier batch processing.
 
-In case the source is an iPhone Live Photo, the presentation timestamp will be migrated as well, thus the photo will start from the same keyframe.
+## Features
+
+- Creates Motion Photo v2 compatible with Google Photos
+- Preserves presentation timestamp for iPhone Live Photos
+- Supports batch processing of directories
+
+## Prerequisites
+
+- [ExifTool](https://exiftool.org/)
+- Python 3.x
 
 ## Installation
 
-In order to use this, please install [ExifTool](https://exiftool.org/) and put the files in the same directory as exiftool.exe.
+1. Clone this repository:
+   ```
+   git clone https://github.com/yourusername/MotionPhoto2.git
+   cd MotionPhoto2
+   ```
+
+2. Install ExifTool and ensure it's in the same directory as the script files.
 
 ## Usage
 
-To convert a pair of image and video to Motion Photo v2, run:
+### Using the PowerShell script directly
 
-```
-> MotionPhoto2.cmd ImageFile.HEIC VideoFile.MOV MotionPhoto.HEIC
+To convert a single pair of image and video to Motion Photo v2:
+
+```powershell
+PS> .\MotionPhoto2.ps1 -imageFile ImageFile.HEIC -videoFile VideoFile.MOV -outputFile MotionPhoto.HEIC
 ```
 
-Alternatively, you can run the powershell script directly:
+### Using the Python script for batch processing
+
+To process multiple files in a directory:
+
+```bash
+python main.py
 ```
-PS> MotionPhoto2.ps1 -imageFile ImageFile.HEIC -videoFile VideoFile.MOV -outputFile MotionPhoto.HEIC
-```
+
+When prompted, enter the source and output directory paths.
+
+## Python Script Features
+
+The `main.py` script provides the following functionality:
+
+- Walks through the source directory recursively
+- Processes Live Photos (HEIC + MOV pairs)
+- Copies individual HEIC, MOV, and other file types
+- Provides a detailed summary of processed files
 
 ## About
 
-The script is written with Windows in mind, but it should be possible to use it on Linux and MacOS too (possibly with some tweaking of the used .Net objects). Patches for this are welcome.
+This fork builds upon the original MotionPhoto2 project, which was designed to mimic the Motion Photo v2 format used by Galaxy S20 FE phones. The added Python script enhances usability for batch processing of directories containing various file types.
 
-Photos are created to mimic the way Galaxy S20 FE phones create HEIC motion photos. This format internally refers to itself as mpv2, which is referred to in this document as Motion Photo version 2 (even though the XMP tag still says it's version 1).
-Thanks to [@tribut](https://github.com/tribut) for uploading a sample photo [here](https://github.com/photoprism/photoprism/issues/1739#issuecomment-1216457652). Without it, this project would never start, as this format is very different from original Motion Photo spec and seems to be amalgamation of Google and Samsung ideas on how to store image and video in the same file.
+## Contributing
+
+Contributions to improve the script or add cross-platform compatibility are welcome. Please submit a pull request or open an issue for any bugs or feature requests.
+
+## License
+
+[Include the original license information here]
+
+## Acknowledgements
+
+- Original MotionPhoto2 project creator
+- [@tribut](https://github.com/tribut) for providing a sample photo that made this project possible
