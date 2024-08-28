@@ -17,7 +17,7 @@ A tool for creating Motion Photo v2 from HEIC or JPG files and videos. This proj
 
 1. Clone this repository:
    ```
-   git clone https://github.com/yourusername/MotionPhoto2.git
+   git clone https://github.com/bs10081/MotionPhoto2.git
    cd MotionPhoto2
    ```
 
